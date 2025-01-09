@@ -4,7 +4,9 @@ import com.mango.userinfo.dto.UserDto;
 import com.mango.userinfo.entity.User;
 import com.mango.userinfo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,5 +34,13 @@ public class UserController {
     public ResponseEntity<UserDto> addUser(@RequestBody UserDto userDto) {
         UserDto savedUserDto = userService.addUser(userDto);
         return new ResponseEntity<>(savedUserDto, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/test")
+    public String exportExcel(@RequestParam String order) {
+        String excelFilename = "test.xls";
+        String dles = "ra_function(RSA)*risk_category";
+        String resource = userService.exportExcelTest(dles);
+        return resource;
     }
 }
